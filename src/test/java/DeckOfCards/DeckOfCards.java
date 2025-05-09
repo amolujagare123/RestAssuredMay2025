@@ -1,20 +1,17 @@
-package sampleAPI;
+package DeckOfCards;
 
 import io.restassured.RestAssured;
 
 import static io.restassured.RestAssured.given;
 
-public class GetAllUsers {
-
+public class DeckOfCards {
 
     public static void main(String[] args) {
-
-        RestAssured.baseURI = "https://reqres.in/";
+        RestAssured.baseURI = "https://deckofcardsapi.com/";
 
         given().log().all()
-                .queryParam("page","2")
-                .when().get("/api/users")
+                .queryParam("deck_count","1")
+                .when().get("/api/deck/new/shuffle/")
                 .then().log().all().statusCode(200);
-
     }
 }
