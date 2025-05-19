@@ -25,10 +25,20 @@ public class DeckOfCards2 {
         System.out.println("deckID="+deckId);
 
 
-        given().log().all()
-                .queryParam("count","2")
+        String resp2 = given().log().all()
+                .queryParam("count","4")
                 .when().get("/api/deck/"+deckId+"/draw/")
-                .then().log().all().statusCode(200);
+                .then().log().all().statusCode(200).extract().asString();
+
+        JsonPath jsonPath2 = new JsonPath(resp2);
+        int size = jsonPath2.get("cards.size()");
+
+        for(int i=0;i<size;i++) {
+            String img1 = jsonPath2.getString("cards["+i+"].image");
+
+            System.out.println("img1=" + img1);
+
+        }
 
     }
 }

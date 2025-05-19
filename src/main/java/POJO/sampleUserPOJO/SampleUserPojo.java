@@ -5,19 +5,19 @@ public class SampleUserPojo {
     String name;
     String job;
 
-    public void setName(String name) {
-        this.name = name;
+    public String getName() {
+        return name;
     }
 
-    public void setJob(String job) {
-        this.job = job;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getJob() {
         return job;
     }
 
-    public String getName() {
-        return name;
+    public void setJob(String job) {
+        this.job = job;
     }
 }

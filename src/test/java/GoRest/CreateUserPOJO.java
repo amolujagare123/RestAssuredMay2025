@@ -1,6 +1,6 @@
 package GoRest;
 
-import POJO.GoREST.User;
+import POJO.GoREST.GoRestCreatePOJO;
 import io.restassured.RestAssured;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -8,7 +8,7 @@ import org.testng.annotations.Test;
 import static io.restassured.RestAssured.given;
 import static payload.GOREST.CreateUserPayload.getCreateUserPayLoad;
 
-public class CreateUser {
+public class CreateUserPOJO {
 
     @BeforeClass
     public void init() {
@@ -17,51 +17,47 @@ public class CreateUser {
 
 
     String name = "kirti";
-    String email = "kirti@gmail.com";
+    String email = "kirti2@gmail.com";
     String gender = "female";
     String status = "active";
+
+
 
     @Test
     public void fetAllUsers1()
     {
 
+        GoRestCreatePOJO ob = new GoRestCreatePOJO();
+        ob.setName(name);
+        ob.setEmail(email);
+        ob.setGender(gender);
+        ob.setStatus(status);
+
         given().log().all()
                 .header("Content-Type", "application/json")
                 .header("Authorization","Bearer 8769cc34965691163d0f8f5ad427102a5bebad9a1a7b8802777b1d41cf674efd")
-                .body(getCreateUserPayLoad(name,email,gender,status))
+                .body(ob)
                 .when().post("/public/v2/users")
                 .then().log()
                 .all().assertThat().statusCode(201);
 
     }
     @Test
-    public void createUser()
+    public void fetAllUsers2()
     {
 
-        User responseObj = given().log().all()
+        given().log().all()
                 .header("Content-Type", "application/json")
-                .header("Authorization", "Bearer 8769cc34965691163d0f8f5ad427102a5bebad9a1a7b8802777b1d41cf674efd")
+                .header("Authorization","Bearer 8769cc34965691163d0f8f5ad427102a5bebad9a1a7b8802777b1d41cf674efd")
                 .body("{\n" +
                         "        \"name\": \"Dipti\",\n" +
-                        "        \"email\": \"dipti3@gmail.test\",\n" +
+                        "        \"email\": \"dipti2@gmail.test\",\n" +
                         "        \"gender\": \"female\",\n" +
                         "        \"status\": \"active\"\n" +
                         "    }")
                 .when().post("/public/v2/users")
                 .then().log()
-                .all().assertThat().statusCode(201).extract().as(User.class);
-
-          int id =   responseObj.getId();
-          String name = responseObj.getName();
-          String email = responseObj.getEmail();
-          String gender = responseObj.getGender();
-          String status = responseObj.getStatus();
-
-        System.out.println("id = " + id);
-        System.out.println("name = " + name);
-        System.out.println("email = " + email);
-        System.out.println("gender = " + gender);
-        System.out.println("status = " + status);
+                .all().assertThat().statusCode(201);
 
     }
 
