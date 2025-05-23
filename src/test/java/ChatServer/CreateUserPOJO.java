@@ -40,7 +40,7 @@ public class CreateUserPOJO {
         given().log().all()
                 .header("Content-Type", "application/json")
                 .auth().preemptive().basic("admin","demo")
-                 .body(ob)
+                .body(ob)
                 .when().post("/restapi/user")
                 .then().log()
                 .all().assertThat().statusCode(200);
